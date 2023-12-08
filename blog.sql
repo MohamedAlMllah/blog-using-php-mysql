@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2023 at 05:43 AM
+-- Generation Time: Dec 08, 2023 at 02:20 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -30,17 +30,16 @@ SET time_zone = "+00:00";
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
   `comment` text NOT NULL,
-  `author_name` varchar(255) NOT NULL
+  `author_name` varchar(255) NOT NULL,
+  `post_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `comments`
 --
 
-INSERT INTO `comments` (`id`, `comment`, `author_name`) VALUES
-(1, 'comment 1', 'turbo'),
-(2, 'comment 2', 'turbo'),
-(3, 'comment 3', 'turbo');
+INSERT INTO `comments` (`id`, `comment`, `author_name`, `post_id`) VALUES
+(8, 'wow', 'Mohamed', 17);
 
 -- --------------------------------------------------------
 
@@ -61,12 +60,7 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `title`, `content`, `image_url`, `created_at`) VALUES
-(1, 'title 1', 'text 1', '', '2023-12-07 02:11:04'),
-(2, 'title 2', 'text 2', '', '2023-12-07 02:12:00'),
-(3, 'title 3', 'text 3\r\n', '', '2023-12-07 02:12:15'),
-(4, 'title 4', 'text 4', '', '2023-12-07 02:12:30'),
-(5, 'title 5', 'text 5', '', '2023-12-07 02:24:15'),
-(6, 'title 6', 'text 66666', 'IMG-65713096a8c993.79139562.jpg', '2023-12-07 02:40:22');
+(17, 'CRISTIANO RONALDO WANTS TO EXTEND STAY AT AL NASSR UNTIL 2027', 'Cristiano Ronaldo is showing no sign of slowing down in Saudi Arabia and reportedly wants to extend his stay at Al Nassr until 2027. Meanwhile, Benfica teenager Joao Neves has attracted the attention of Manchester United, but the Red Devils may have to pay a £103 million fee for his services.', 'IMG-65726f06c5ab81.68711754.jpg', '2023-12-08 01:19:02');
 
 -- --------------------------------------------------------
 
@@ -75,19 +69,18 @@ INSERT INTO `posts` (`id`, `title`, `content`, `image_url`, `created_at`) VALUES
 --
 
 CREATE TABLE `users` (
-  `id` bigint(20) NOT NULL,
-  `user_id` bigint(20) NOT NULL,
-  `user_name` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `user_id`, `user_name`, `password`, `date`) VALUES
-(1, 4675389, 'turbo', '123456', '2023-12-06 23:49:38');
+INSERT INTO `users` (`id`, `email`, `user_name`, `password`) VALUES
+(8, 'mohamedalmllah@gmail.com', 'Mohamed', '123456');
 
 --
 -- Indexes for dumped tables
@@ -97,7 +90,8 @@ INSERT INTO `users` (`id`, `user_id`, `user_name`, `password`, `date`) VALUES
 -- Indexes for table `comments`
 --
 ALTER TABLE `comments`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `post_id` (`post_id`);
 
 --
 -- Indexes for table `posts`
@@ -110,9 +104,7 @@ ALTER TABLE `posts`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `user_name` (`user_name`),
-  ADD KEY `date` (`date`);
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -122,19 +114,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

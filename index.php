@@ -3,7 +3,7 @@ session_start();
 
 include "logic.php";
 
-$user_data = check_login($con);
+$userData = check_login($con);
 ?>
 
 <!DOCTYPE html>
@@ -12,17 +12,14 @@ $user_data = check_login($con);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
     <title>Sport Blog using PHP & MySQL</title>
 </head>
 
 <body>
 
     <div class="container mt-5">
-
         <!-- Display any info -->
         <?php if (isset($_REQUEST['info'])) { ?>
             <?php if ($_REQUEST['info'] == "added") { ?>
@@ -34,7 +31,7 @@ $user_data = check_login($con);
         <a href="index.php">
             <h1>
                 <img src="images/logo.JPG" width="100" height="50" title="Logo of a blog" alt="Logo of a blog" />
-                Sport Blog
+                Sports Blog
             </h1>
         </a>
         <br>
@@ -42,7 +39,7 @@ $user_data = check_login($con);
         <div class="row">
             <div class="col-4">
                 <?php if (check_login($con)) {
-                    echo  "Hello, " . $user_data['user_name'];
+                    echo  "Welcome, " . $userData['user_name'];
                 } ?>
             </div>
             <div class="col-4 offset-4 text-right">
@@ -58,39 +55,44 @@ $user_data = check_login($con);
         <hr>
         <!-- Create a new Post button -->
         <div class="text-center">
-            <a href="create.php" class="btn btn-outline-dark">+ Create a new post</a>
+            <a href="create.php" class="btn btn-outline-success">+ Create a new post</a>
         </div>
 
         <!-- Display posts from database -->
         <div class="row">
-            <?php foreach ($result as $q) { ?>
-                <div class="card text-white bg-dark mt-5 col-12">
+            <?php foreach ($result as $post) { ?>
+                <div class="card bg-light mt-5 col-12">
                     <div class="card-body">
                         <h5 class="card-title">
                             <?php
-                            $created_at = date("d-m-y h:i a", strtotime($q['created_at']));
-                            echo  $created_at . " - " . $q['title'];
+                            $created_at = date("d-m-y h:i a", strtotime($post['created_at']));
+                            echo  $created_at . " - " . $post['title'];
                             ?>
                         </h5>
                         <div class="card-text row">
                             <div class="col-8">
-                                <?php echo substr($q['content'], 0, 1000); ?>...
+                                <?php echo substr($post['content'], 0, 1000); ?>...
                             </div>
                             <div class="col-4">
-                                <img class="col-12" src="uploads/<?= $q['image_url'] ?>" alt="article picture">
+                                <img class="col-12" src="uploads/<?= $post['image_url'] ?>" alt="article picture">
                             </div>
                         </div>
-                        <a href="view.php?id=<?php echo $q['id'] ?>" class="btn btn-light">Read More <span class="text-danger">&rarr;</span></a>
+                        <a href="view.php?id=<?php echo $post['id'] ?>" class="btn btn-outline-dark">Details <span class="text-danger">&rarr;</span></a>
                     </div>
                 </div>
             <?php } ?>
         </div>
-        <?php
-        //display the link of the pages in URL  
-        for ($page = 1; $page <= $number_of_page; $page++) {
-            echo '<a href = "index.php?page=' . $page . '">' . $page . ' </a>';
-        }
-        ?>
+
+        <div class="btn-toolbar my-5" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group text-center me-2" role="group" aria-label="First group">
+                <?php
+                //display the link of the pages in URL  
+                for ($page = 1; $page <= $number_of_page; $page++) {
+                    echo '<a class="btn btn-primary" href = "index.php?page=' . $page . '">' . $page . ' </a>';
+                }
+                ?>
+            </div>
+        </div>
 
     </div>
 

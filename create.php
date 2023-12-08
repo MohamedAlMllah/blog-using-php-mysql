@@ -1,8 +1,8 @@
 <?php
 session_start();
 include "logic.php";
-$user_data = check_login($con);
-if (!$user_data)
+$userData = check_login($con);
+if (!$userData)
     must_be_login($con);
 ?>
 
@@ -18,10 +18,8 @@ if (!$user_data)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
     <title>Blog using PHP & MySQL</title>
 </head>
 
@@ -29,10 +27,12 @@ if (!$user_data)
 
     <div class="container mt-5">
         <form action="upload.php" method="post" enctype="multipart/form-data">
-            <input type=" text" placeholder="Blog Title" class="form-control my-3 bg-dark text-white text-center" name="title">
+            <input type=" text" placeholder="Blog Title" class="form-control my-3 text-center" name="title">
             <input type="file" name="my_image">
-            <textarea name="content" class="form-control my-3 bg-dark text-white" cols="30" rows="10"></textarea>
-            <button class="btn btn-dark" name="new_post">Add Post</button>
+            <textarea name="content" class="form-control my-3 cols=" 30" rows="10"></textarea>
+            <div class="text-center">
+                <button class="btn btn-success" name="new_post">Add Post</button>
+            </div>
         </form>
     </div>
 
